@@ -21,14 +21,12 @@ public class Tema{
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Long id;
 		
-		@NotBlank
+		@NotBlank(message = "O atributo Descrição é obrigatório e não pode conter espaços em branco")
 		private String descricao;
 		
 		@OneToMany(mappedBy = "tema", cascade = CascadeType.REMOVE)
 		@JsonIgnoreProperties("tema")
 		private List<Postagem> postagem;
-
-		private String tema;
 		
 		public Long getId() {
 			return id;
@@ -52,14 +50,6 @@ public class Tema{
 
 		public void setPostagem(List<Postagem> postagem) {
 			this.postagem = postagem;
-		}	
-		
-		public String getTema() {
-			return tema;
-		}
-
-		public void setTema(String tema) {
-			this.tema = tema;
 		}
 		
 }
