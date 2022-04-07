@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserDetailsImpl implements UserDetails {
+	
 	private static final long serialVersionUID = 1L;
 
 	private String userName;
@@ -21,7 +22,7 @@ public class UserDetailsImpl implements UserDetails {
 	}
 
 	public UserDetailsImpl() {	}
-	
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
@@ -52,7 +53,7 @@ public class UserDetailsImpl implements UserDetails {
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean isEnabled() {
 		return true;
