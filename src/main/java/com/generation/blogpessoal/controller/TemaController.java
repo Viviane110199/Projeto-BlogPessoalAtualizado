@@ -27,39 +27,39 @@ import com.generation.blogpessoal.repository.TemaRepository;
 public class TemaController {
 	
 	@Autowired 
-	private TemaRepository repository;
+	private TemaRepository temaRepository;
 	
 	@GetMapping
 	public ResponseEntity<List<Tema>> getAll (){ 
-		return ResponseEntity.ok(repository.findAll());
+		return ResponseEntity.ok(temaRepository.findAll());
 	}
 	
 	@GetMapping("/{id}") 
 	public ResponseEntity <Tema> getById (@PathVariable long id){
-		return repository.findById(id).map(resp -> ResponseEntity.ok(resp))
+		return temaRepository.findById(id).map(resp -> ResponseEntity.ok(resp))
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
 	@GetMapping("/descricao/{descricao}") 
-	public ResponseEntity <List<Tema>> getByNome (@PathVariable String nome){
-		return ResponseEntity.ok(repository.findAllByDescricaoContainingIgnoreCase(nome));
+	public ResponseEntity <List<Tema>> getByDescricao (@PathVariable String descricao){
+		return ResponseEntity.ok(temaRepository.findAllByDescricaoContainingIgnoreCase(descricao));
 	}
 	
 	@PostMapping 
-	public ResponseEntity <Tema> posttema (@RequestBody Tema tema){
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(tema));
+	public ResponseEntity <Tema> postTema (@RequestBody Tema tema){
+		return ResponseEntity.status(HttpStatus.CREATED).body(temaRepository.save(tema));
 	}
 	
 	@PutMapping 
-	public ResponseEntity<Tema>puttema(@Valid @RequestBody Tema tema) {
-		return repository.findById(tema.getId()).map(resp -> ResponseEntity.status(HttpStatus.OK).body(
-			repository.save(tema))).orElse(ResponseEntity.notFound().build());}
+	public ResponseEntity<Tema>putTema(@Valid @RequestBody Tema tema) {
+		return temaRepository.findById(tema.getId()).map(resp -> ResponseEntity.status(HttpStatus.OK).body(
+			temaRepository.save(tema))).orElse(ResponseEntity.notFound().build());}
 	
 	@DeleteMapping ("/{id}") 
 	public ResponseEntity<Postagem> deleteTema(@PathVariable Long id) {
-		boolean resposta = repository.existsById(id);
+		boolean resposta = temaRepository.existsById(id);
 		if(resposta) {
-			repository.deleteById(id);
+			temaRepository.deleteById(id);
 			return ResponseEntity.noContent().build();
 		}
 			else
